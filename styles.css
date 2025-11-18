@@ -1,0 +1,129 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: #000;
+    color: #0f0;
+    font-family: 'Roboto Mono', monospace;
+    overflow-x: hidden;
+    height: 100vh;
+}
+
+/* Падающий код матрицы */
+.matrix {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: transparent;
+    pointer-events: none;
+    z-index: 1;
+}
+.matrix::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(transparent 50%, rgba(0,255,0,0.03) 50%);
+    background-size: 100% 6px;
+    animation: rain 8s linear infinite;
+}
+
+/* Скан-линия как в старых мониторах */
+.scanline {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(transparent 98%, rgba(0,255,0,0.08) 100%);
+    animation: scan 8s linear infinite;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes rain { 0% { background-position: 0 0; } 100% { background-position: 0 100%; } }
+@keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+
+.terminal {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 40px;
+    background: rgba(0, 15, 0, 0.95);
+    border: 2px solid #0f0;
+    box-shadow:
+        0 0 30px #0f0,
+        inset 0 0 60px rgba(0, 255, 0, 0.1);
+    border-radius: 4px;
+    text-shadow: 0 0 10px #0f0;
+}
+
+.header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    color: #0f0;
+}
+
+.prompt { color: #00ff00; }
+.output { color: #0f0; margin: 15px 0; font-size: 1.2rem; }
+
+.cmd {
+    color: #00ff00;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+}
+
+h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    margin: 50px 0 20px;
+    color: #0f0;
+    text-shadow: 0 0 15px #0f0;
+}
+
+.monospace {
+    font-family: 'Roboto Mono', monospace;
+    letter-spacing: 2px;
+}
+
+a {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+    transition: all 0.3s;
+}
+a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 20px #ffffff;
+}
+
+/* Карточки настроения */
+.mood-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin: 30px 0;
+}
+.mood-card {
+    border: 1px solid #0f0;
+    padding: 15px;
+    background: rgba(0, 255, 0, 0.05);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+}
+.mood-card img {
+    width: 100%;
+    border: 1px solid #0f0;
+    box-shadow: 0 0 20px #0f0;
+    image-rendering: pixelated;
+}
+.label {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: #00ff00;
+    text-shadow: 0 0 8px;
+}
+
+/* Футер */
+footer .cmd { font-size: 1.3rem; }
+footer .output a { font-size: 1.5rem; font-weight: bold; }
+
+@media (max-width: 768px) {
+    .mood-grid { grid-template-columns: 1fr; }
+    .terminal { margin: 20px; padding: 20px; }
+}
